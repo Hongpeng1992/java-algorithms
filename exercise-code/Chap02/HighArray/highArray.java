@@ -82,6 +82,11 @@ class HighArray
       return max;
    }
    //-----------------------------------------------------------
+   public int length()
+   {
+      return nElems;
+   }
+   //-----------------------------------------------------------
    }  // end class HighArray
 ////////////////////////////////////////////////////////////////
 class HighArrayApp
@@ -91,6 +96,7 @@ class HighArrayApp
       int maxSize = 100;            // array size
       HighArray arr;                // reference to array
       arr = new HighArray(maxSize); // create the array
+      HighArray arr2 = new HighArray(maxSize);
 
       arr.insert(77);               // insert 10 items
       arr.insert(99);
@@ -120,5 +126,14 @@ class HighArrayApp
       arr.display();                // display items again
       
       System.out.println("Max: " + arr.getMax());
+      
+      // reverse sort array (exercise 2.3)
+      int startLength = arr.length();
+      
+      for (int k = 0; k < startLength; k++)
+         if (arr.length() > 0)
+            arr2.insert(arr.removeMax());
+         
+      arr2.display();
       }  // end main()
    }  // end class HighArrayApp
