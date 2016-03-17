@@ -66,12 +66,12 @@ class HighArray
       return max;
    }
    //-----------------------------------------------------------
-   public boolean removeMax()          // removes maximum value (exercise 2.2)
+   public long removeMax()          // removes maximum value (exercise 2.2)
    {
       int i;
       int maxIndex = -1;
       long max = -1;
-      if (nElems == 0) return false;
+      if (nElems == 0) return max;
       for (i = 0; i < nElems; i++)
          if (a[i] > max) {
             max = a[i];
@@ -79,7 +79,7 @@ class HighArray
       for(int j = maxIndex; j < nElems; j++) 
          a[j] = a[j+1];
       nElems--;
-      return true;
+      return max;
    }
    //-----------------------------------------------------------
    }  // end class HighArray
