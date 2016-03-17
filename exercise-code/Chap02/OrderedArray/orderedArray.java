@@ -16,6 +16,9 @@ class OrdArray
    public int size()
       { return nElems; }
    //-----------------------------------------------------------
+   public long get(int idx)
+      { return a[idx]; }
+   //-----------------------------------------------------------
    public int find(long searchKey, String operator)
       {
       int lowerBound = 0;
@@ -62,7 +65,6 @@ class OrdArray
       {
       int j;
       j = find(value, "gt");
-      System.out.println("value = " + value + ", j = " + j + ", nElems = " + nElems);
       for(int k=nElems; k>j; k--)    // move bigger ones up
          a[k] = a[k-1];
       a[j] = value;                  // insert it
@@ -90,6 +92,38 @@ class OrdArray
       System.out.println("");
       }
    //-----------------------------------------------------------
+   public OrdArray merge(OrdArray other)
+   {
+      int thisLen = this.size();
+      int otherLen = other.size();
+      int thisMove = 0;
+      int otherMove = 0;
+      int size = (this.size() + other.size()) * 2;
+      OrdArray b = new OrdArray(size);
+      
+      while (thisMove < thisLen || otherMove < otherLen)
+      {
+         if (thisMove < thisLen && otherMove < otherLen)
+         {
+            if (this.get(thisMove) < other.get(otherMove)) {
+               b.insert(this.get(thisMove));
+               thisMove++;
+            } else {
+               b.insert(other.get(otherMove));
+               otherMove++;
+            }
+         } else if (thisMove < thisLen) {
+            b.insert(this.get(thisMove));
+            thisMove++;
+         } else if (otherMove < otherLen) {
+            b.insert(other.get(otherMove));
+            otherMove++;
+         }
+      }
+      
+      return b;
+   }
+   //-----------------------------------------------------------
    }  // end class OrdArray
 ////////////////////////////////////////////////////////////////
 class OrderedApp
@@ -99,27 +133,18 @@ class OrderedApp
       int maxSize = 100;             // array size
       OrdArray arr;                  // reference to array
       arr = new OrdArray(maxSize);   // create the array
+      OrdArray arr2 = new OrdArray(maxSize);
 
       arr.insert(77); // insert 10 items
-      arr.display();
       arr.insert(99);
-      arr.display();
       arr.insert(44);
-      arr.display();
       arr.insert(55);
-      arr.display();
       arr.insert(22);
-      arr.display();
       arr.insert(88);
-      arr.display();
       arr.insert(11);
-      arr.display();
       arr.insert(00);
-      arr.display();
       arr.insert(66);
-      arr.display();
       arr.insert(33);
-      arr.display();
 
       int searchKey = 55;            // search for item
       if( arr.find(searchKey, "eq") != arr.size() )
@@ -134,5 +159,13 @@ class OrderedApp
       arr.delete(99);
 
       arr.display();                 // display items again
+      
+      arr2.insert(5);
+      arr2.insert(24);
+      arr2.insert(53);
+      arr2.insert(81);
+      
+      OrdArray arr3 = arr.merge(arr2);
+      arr3.display();
       }  // end main()
    }  // end class OrderedApp
