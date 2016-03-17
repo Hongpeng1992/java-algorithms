@@ -87,6 +87,26 @@ class HighArray
       return nElems;
    }
    //-----------------------------------------------------------
+   public void noDups()
+   {
+      int arrSize = nElems;
+      int aCounter = 0;
+      long[] b = new long[arrSize];
+      
+      for (int i = 0; i < arrSize; i++)
+      {
+         b[i] = a[i];
+         a[i] = 0;
+         nElems--;
+      }
+      
+      for (int j = 0; j < arrSize; j++)
+      {
+         if (!this.find(b[j]))
+            this.insert(b[j]);
+      }
+   }
+   //-----------------------------------------------------------
    }  // end class HighArray
 ////////////////////////////////////////////////////////////////
 class HighArrayApp
@@ -126,6 +146,15 @@ class HighArrayApp
       arr.display();                // display items again
       
       System.out.println("Max: " + arr.getMax());
+      
+      arr.insert(99);
+      arr.insert(44);
+      arr.insert(11);
+      
+      arr.display();
+      
+      arr.noDups();
+      arr.display();
       
       // reverse sort array (exercise 2.3)
       int startLength = arr.length();
