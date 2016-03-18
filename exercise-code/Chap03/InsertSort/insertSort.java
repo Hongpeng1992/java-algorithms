@@ -58,6 +58,28 @@ class ArrayIns
          
       return temp.get((nElems-1)/2);
       }
+//--------------------------------------------------------------
+   public void noDups()
+      {
+      insertionSort();
+      if (nElems < 2) return;
+      int i = 1;
+      int counter = 0;
+      for (int j = 1; j < nElems; j++)
+         if (a[j] != a[j-1])
+            {
+            a[i] = a[j];
+            i++;
+            }
+      while (i < nElems)
+         {
+         a[i] = 0;
+         counter++;
+         i++;
+         }
+      nElems -= counter;
+      }
+//--------------------------------------------------------------
    }  // end class ArrayIns
 ////////////////////////////////////////////////////////////////
 class InsertSortApp
@@ -86,5 +108,16 @@ class InsertSortApp
       arr.insertionSort();          // insertion-sort them
 
       arr.display();                // display them again
+      
+      arr.insert(55);
+      arr.insert(22);
+      arr.insert(88);
+      arr.insert(11);
+      
+      arr.display();
+      
+      arr.noDups();
+      
+      arr.display();
       }  // end main()
    }  // end class InsertSortApp
