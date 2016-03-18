@@ -49,6 +49,30 @@ class ArrayBub
       a[two] = temp;
       }
 //--------------------------------------------------------------
+   public void oddEvenSort()
+   {
+      boolean sorted = false;
+      while (!sorted)
+      {
+         sorted = true;
+         int i, j;
+         
+         for (i = 1; i < nElems - 1; i += 2)
+            if (a[i] > a[i+1])
+            {
+               swap(i, i+1);
+               sorted = false;
+            }
+         
+         for (j = 0; j < nElems - 1; j += 2)
+            if (a[j] > a[j+1])
+            {
+               swap(j, j+1);
+               sorted = false;
+            }
+      }
+   }
+//--------------------------------------------------------------
    }  // end class ArrayBub
 ////////////////////////////////////////////////////////////////
 class BubbleSortApp
@@ -59,7 +83,7 @@ class BubbleSortApp
       ArrayBub arr;                 // reference to array
       ArrayBub arr2;
       arr = new ArrayBub(maxSize);  // create the array
-      arr2 = new ArrayBub(10000);
+      arr2 = new ArrayBub(100);
 
       arr.insert(77);               // insert 10 items
       arr.insert(99);
@@ -72,7 +96,7 @@ class BubbleSortApp
       arr.insert(66);
       arr.insert(33);
       
-      for (long i = 9999; i >= 0; i--)
+      for (long i = 99; i >= 0; i--)
          arr2.insert(i);
 
       arr.display();                // display items
@@ -83,7 +107,9 @@ class BubbleSortApp
       
       System.out.println();
       
-      arr2.bubbleSort();
+      arr2.oddEvenSort();
+      
+      arr2.display();
       }  // end main()
    }  // end class BubbleSortApp
 ////////////////////////////////////////////////////////////////
