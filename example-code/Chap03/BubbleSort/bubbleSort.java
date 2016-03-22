@@ -51,7 +51,9 @@ class BubbleSortApp
       {
       int maxSize = 100;            // array size
       ArrayBub arr;                 // reference to array
+      ArrayBub arr2;
       arr = new ArrayBub(maxSize);  // create the array
+      arr2 = new ArrayBub(10000);
 
       arr.insert(77);               // insert 10 items
       arr.insert(99);
@@ -63,12 +65,19 @@ class BubbleSortApp
       arr.insert(00);
       arr.insert(66);
       arr.insert(33);
+      
+      for (long i = 9999; i >= 0; i--)
+         arr2.insert(i);
 
       arr.display();                // display items
 
       arr.bubbleSort();             // bubble sort them
 
       arr.display();                // display them again
+      
+      System.out.println();
+      
+      arr2.bubbleSort();
       }  // end main()
    }  // end class BubbleSortApp
 ////////////////////////////////////////////////////////////////
