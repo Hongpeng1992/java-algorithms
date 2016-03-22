@@ -17,8 +17,8 @@ class Deque
     
     public void insertLeft(long n)
     {
-        if (numItems == maxSize)
-            throw new IllegalStateException("stack is full");
+        if (isFull())
+            throw new IllegalStateException("queue is full");
             
         if (front == 0)
             front = maxSize - 1;
@@ -31,8 +31,8 @@ class Deque
     
     public void insertRight(long n)
     {
-        if (numItems == maxSize)
-            throw new IllegalStateException("stack is full");
+        if (isFull())
+            throw new IllegalStateException("queue is full");
             
         if (rear == maxSize - 1)
             rear = 0;
@@ -45,6 +45,8 @@ class Deque
     
     public long removeLeft()
     {
+        if (isEmpty())
+            throw new IllegalStateException("queue is empty");
         long temp = queArray[front];
         if (front == maxSize - 1)
             front = 0;
@@ -56,6 +58,8 @@ class Deque
     
     public long removeRight()
     {
+        if (isEmpty())
+            throw new IllegalStateException("queue is empty");
         long temp = queArray[rear];
         if (rear == 0)
             rear = maxSize - 1;
