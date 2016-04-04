@@ -29,6 +29,14 @@ class CircularList
         return current == null;
     }
     
+    public void next()
+    {
+        if ( !isEmpty() && current.next != null)
+        {
+            current = current.next;
+        }
+    }
+    
     public void insert(long n)
     {
         Link newLink = new Link(n);
@@ -51,6 +59,7 @@ class CircularList
             newLink.previous = current;
             current.next = newLink;
             current = current.next;
+            current.next.previous = current;
         }
     }
     
@@ -67,9 +76,18 @@ class CircularList
             return temp.lData;
         }
         
-        current.previous.next = current.next;
-        current.next.previous = current.previous;
+        if ( current.next.next == current )
+        {
+            current = current.next;
+            current.previous = null;
+            current.next = null;
+            return temp.lData;
+        }
+        
+        current.previous.next = temp.next;
+        current.next.previous = temp.previous;
         current = current.next;
+
         return temp.lData;
     }
     
@@ -80,14 +98,37 @@ class CircularList
         if ( current.lData == key )
             return true;
             
+        current = current.next;
+            
         while ( current != start )
         {
-            current = current.next;
             if ( current.lData == key )
                 return true;
+            current = current.next;
         }
         
         return false;
+    }
+    
+    public long currentValue()
+    {
+        return current.lData;
+    }
+    
+    public String printObject()
+    {
+        String temp = "{ previous: ";
+        if (current.previous != null)
+            temp += current.previous.lData;
+        else
+            temp += "null";
+        temp = temp + ", current: " + current.lData + ", next: ";
+        if (current.next != null)
+            temp += current.next.lData;
+        else
+            temp += "null";
+        temp += " }";
+        return temp;
     }
 }
 
@@ -111,5 +152,38 @@ class CircularListApp
         System.out.println(cList.find(20));
         
         System.out.println(cList.delete());
+    }
+}
+
+class JosephusProblem
+{
+    public static void main(String[] args)
+    {
+        CircularList people = new CircularList();
+        
+        int numPeople = Integer.parseInt(args[0]);
+        int everyN = Integer.parseInt(args[1]);
+        int start = Integer.parseInt(args[2]);
+        int remaining = numPeople;
+        int counter = 0;
+        
+        for (int i = 1; i <= numPeople; i++)
+        {
+            people.insert(i);
+        }
+        
+        people.find(start);
+        
+        while ( remaining > 1 )
+        {
+            for (int j = everyN; j > 0; j--)
+            {
+                people.next();
+            }
+            people.delete();
+            --remaining;
+        }
+        
+        System.out.println("Joseph should choose " + people.currentValue());
     }
 }
