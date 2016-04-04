@@ -109,5 +109,7 @@ class CircularListApp
         
         System.out.println(cList.find(10));
         System.out.println(cList.find(20));
+        
+        System.out.println(cList.delete());
     }
 }
